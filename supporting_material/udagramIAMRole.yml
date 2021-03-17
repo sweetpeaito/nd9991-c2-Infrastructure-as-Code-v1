@@ -1,0 +1,64 @@
+AWSTemplateFormatVersion: "2010-09-09"
+
+Parameters:
+
+    EnvironmentName:
+        Description: An environment name that will be prefixed to resource names
+        Type: String
+
+    IAMRoleName: 
+        Description: IAM role for EC2 instance
+        Type: String
+        Default: " "
+    InstanceProfileName:
+        Description: Instanceprofile role for EC2 instance
+        Type: String
+        Default: " "
+    
+Resources:
+  GetS3ObjectRole:
+    Type: 'AWS::IAM::Role'
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service:
+                - ec2.amazonaws.com
+            Action:
+              - 'sts:AssumeRole'
+      Path: /
+  RolePolicies: 
+    Type: "AWS::IAM::Policy"
+    Properties: 
+      PolicyName: "root"
+      PolicyDocument: 
+        Version: "2012-10-17"
+        Statement: 
+          - Effect: "Allow"
+            Action: "*"
+            Resource: "*"
+      Roles: 
+        - Ref: "GetS3ObjectRole"
+  InstanceProfileUdagramApp:
+    Type: 'AWS::IAM::InstanceProfile'
+    Properties:
+      Path: /
+      Roles:
+        - !Ref GetS3ObjectRole
+
+Outputs: 
+
+    GetS3ObjectRole: 
+        Description: A reference to the created VPC
+        Value: !Ref GetS3ObjectRole
+        Export:
+          Name: !Sub ${EnvironmentName}-RID
+
+    InstanceProfileUdagramApp: 
+        Description: A reference to the created instance profile
+        Value: !Ref InstanceProfileUdagramApp
+        Export:
+          Name: !Sub ${EnvironmentName}-IPID     
+        
