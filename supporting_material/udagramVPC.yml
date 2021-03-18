@@ -53,7 +53,6 @@ Resources:
             InternetGatewayId: !Ref InternetGateway
             VpcId: !Ref UdagramVPC
 
-
     PublicSubnet1: 
         Type: AWS::EC2::Subnet
         Properties:
@@ -235,22 +234,22 @@ Outputs:
         Description: A reference to the public subnet in the 1st Availability Zone
         Value: !Ref PublicSubnet1
         Export:
-          Name: !Sub ${EnvironmentName}-PUB1-SN
+          Name: !Sub ${EnvironmentName}-PUBSN-1
 
     PublicSubnet2: 
         Description: A reference to the public subnet in the 2nd Availability Zone
         Value: !Ref PublicSubnet2
         Export:
-          Name: !Sub ${EnvironmentName}-PUB2-SN
+          Name: !Sub ${EnvironmentName}-PUBSN-2
 
     PrivateSubnet1:
         Description: A reference to the private subnet in the 1st Availability Zone
         Value: !Ref PrivateSubnet1
         Export:
-          Name: !Sub ${EnvironmentName}-PRI1-SN
+          Name: !Sub ${EnvironmentName}-PRISN-1
 
     PrivateSubnet2: 
         Description: A reference to the private subnet in the 2nd Availability Zone
         Value: !Ref PrivateSubnet2
         Export:
-          Name: !Sub ${EnvironmentName}-PRI2-SN
+          Name: !Sub ${EnvironmentName}-PRISN-2
