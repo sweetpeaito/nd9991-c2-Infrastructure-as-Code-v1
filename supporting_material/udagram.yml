@@ -80,21 +80,17 @@ Resources:
   WebAppLaunchConfig:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
-      ImageId: ami-005bdb005fb00e791
-      InstanceType: t3.medium
+      ImageId: ami-02701bcdc5509e57b
+      InstanceType: t2.micro
+      KeyName: demoserver
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
           sudo apt-get update -y
           sudo apt-get install apache2 -y
-          cd /var/www.html
-          aws s3 cp s3://myudagrambucket/udacity_udagram.zip .
-          unzip -o udacity_udagram.zip
+          cd /var/www/html/index.html
+          echo "Udacity Demo Web Server Up and Running!" > index.html
           sudo systemctl start apache2.service
-            sudo systemctl start apache2.service          
-          sudo systemctl start apache2.service
-          echo "Udacity Demo Web Server Up and Running!" > index.html           
-      KeyName: demoserver
       IamInstanceProfile:   
         Ref:  InstanceProfileUdagramApp
       SecurityGroups:
