@@ -82,7 +82,6 @@ Resources:
     Properties:
       ImageId: ami-02701bcdc5509e57b
       InstanceType: t2.micro
-      KeyName: demoserver
       UserData:
         Fn::Base64: !Sub |
           #!/bin/bash
